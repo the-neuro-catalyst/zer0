@@ -86,7 +86,7 @@ ZERO handles almost every modern format out-of-the-box:
 
 ---
 
-## 🌐 These for ZERO
+## 🌐  For ZERO
 
 Connect with the project and the community:
 
@@ -104,7 +104,7 @@ Connect with the project and the community:
 
 ---
 
-## 💼 These for Real Job
+## 💼 Operational
 
 **Free Tools, Not Insight.**
 
