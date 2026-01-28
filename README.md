@@ -119,7 +119,7 @@ The ZERO engine is open and free. However, systemic transformation requires deep
 - **Email:** [hi@theneurocatalyst.com](mailto:hi@theneurocatalyst.com)
 - **Web:** [theneurocatalyst.com](https://theneurocatalyst.com)
 
-> *"$GoodImage \neq Loyalty$ --- Structural truth is the only terminal state."*
+> *"Good Image ≠ Loyalty -- Structural truth is the only terminal state."*
 
 ---
 
