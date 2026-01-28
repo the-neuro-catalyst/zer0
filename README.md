@@ -109,8 +109,8 @@ cargo build --release
 ## Links
 
 - **Landing:** [zero.theneurocatalyst.com](https://zero.theneurocatalyst.com)
-- **Source:** [github.com/the-neuro-catalyst/zer0](https://github.com/the-neuro-catalyst/zer0)
-- **Discord:** [discord.gg/HCPXuC55HV](https://discord.gg/HCPXuC55HV)
+- **Source:** [github](https://github.com/the-neuro-catalyst/zer0)
+- **Discord:** [discord](https://discord.gg/HCPXuC55HV)
 - **Slack:** [Join Community](https://join.slack.com/t/zero-byy4555/shared_invite/zt-3o65k8f2p-mIaEH8Hvb~UFSA0wolg5XA)
 
 ---
