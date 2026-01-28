@@ -1,5 +1,5 @@
 
-# `UNLICENSE` ZERO - Universal High-Performance Data Suite  **"Read everything. Fast. Locally."**
+# `UNLICENSE` ZERO - Universal High-Performance Data Suite, Read everything, Fast, Locally.
 
 <div align="center">
 <a href="https://www.producthunt.com/products/zero-unlicense?embed=true&amp;utm_source=badge-featured&amp;utm_medium=badge&amp;utm_campaign=badge-zero-unlicense" target="_blank" rel="noopener noreferrer"><img alt="ZERO | UNLICENSE - Sub-millisecond inspection for massive Parquet, S3 and more. | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1069244&amp;theme=light&amp;t=1769576962207"></a>
