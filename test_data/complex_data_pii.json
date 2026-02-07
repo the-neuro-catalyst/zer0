@@ -5,14 +5,16 @@
       "name": "John Doe",
       "email": "john.doe@example.com",
       "ssn": "123-45-6789",
-      "credit_card": "4111111111111111"
+      "phone": "555-0101",
+      "salary": 75000
     },
     {
       "id": 2,
       "name": "Jane Smith",
       "email": "jane.smith@example.com",
       "ssn": "987-65-4321",
-      "credit_card": "5500000000000004"
+      "phone": "555-0102",
+      "salary": 82000
     }
   ]
 }
