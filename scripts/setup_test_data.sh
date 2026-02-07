@@ -94,7 +94,7 @@ done
 
 # Text with PII
 echo " - SUMMARY.md"
-cat <<EOF > notes_pii.txt
+cat <<EOF > SUMMARY.md
 User Audit Record:
 John Doe (john.doe@example.com) | SSN: 123-45-6789 | CC: 4111111111111111
 Jane Smith (jane.smith@example.com) | SSN: 987-65-4321 | CC: 5500000000000004
