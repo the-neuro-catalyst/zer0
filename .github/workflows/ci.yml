@@ -43,11 +43,7 @@ jobs:
           cargo fmt --all --check
           cargo clippy --workspace -- -D warnings
           
-      - name: UI Tauri Build
-        run: |
-          cd crates/ui
-          pnpm tauri info
-          pnpm tauri build
+
 
       - name: Rust Cache Integrity
         uses: swatinem/rust-cache@v2
@@ -60,12 +56,6 @@ jobs:
       - name: Rust Cache Logic Validation
         uses: swatinem/rust-cache@v2
 
-  ui-integrity-check:
-      name: UI Integrity (TypeScript)
-      runs-on: ubuntu-latest
-
-      steps:
-      - uses: actions/checkout@v6
       
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -82,6 +72,12 @@ jobs:
           cd crates/ui
           pnpm install --frozen-lockfile
           pnpm tsc
+
+      - name: UI Tauri Build
+        run: |
+          cd crates/ui
+          pnpm tauri info
+          pnpm tauri build
 
       - name: Cache UI Packages
         uses: actions/cache@v3
