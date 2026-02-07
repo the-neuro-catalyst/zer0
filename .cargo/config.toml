@@ -22,12 +22,12 @@ rustflags = [
     "link-arg=-Wl,--as-needed",
 ]
 
-[target.x86_64-apple-darwin]
+# [target.x86_64-apple-darwin]
 # Using 'zld' for fast linking on macOS
-rustflags = ["-C", "link-arg=-fuse-ld=zld", "-C", "target-cpu=native"]
+# rustflags = ["-C", "link-arg=-fuse-ld=zld", "-C", "target-cpu=native"]
 
-[target.aarch64-apple-darwin]
-rustflags = ["-C", "link-arg=-fuse-ld=zld", "-C", "target-cpu=native"]
+# [target.aarch64-apple-darwin]
+# rustflags = ["-C", "link-arg=-fuse-ld=zld", "-C", "target-cpu=native"]
 
 [env]
 # Environmental variables for high-intensity build states.
