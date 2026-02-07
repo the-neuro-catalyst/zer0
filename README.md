@@ -1,6 +1,7 @@
-[![ZERO CI](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml/badge.svg)](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml)
-[![ZERO CI](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml/badge.svg?branch=main&event=issues)](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml)
-[![ZERO CI](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml/badge.svg?branch=main&event=release)](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml)
+![GitHub License](https://img.shields.io/github/license/the-neuro-catalyst/zer0?style=plastic)
+[![ZERO CI](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml/badge.svg)](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml) 
+
+
 
 # `ZERO` - Universal Data Inspector and AI MCP Auditor for Enterprises
 
