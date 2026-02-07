@@ -45,7 +45,11 @@ jobs:
   cache-cleanup:
     name: "Clean Up Caches"
     runs-on: ubuntu-22.04
+    permissions:
+      actions: write
     steps:
-      - uses: actions/gh-cache-factory@v1
-        with:
-          min-age-days: 30
+      - name: "Clear stale caches"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh cache delete --all --age 30d

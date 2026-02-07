@@ -1,12 +1,3 @@
-env:
-  RUST_VERSION: "1.85.0"
-  NODE_VERSION: "20"
-  PNPM_VERSION: "9"
-  CARGO_TERM_COLOR: always
-  RUST_BACKTRACE: 1
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
 name: "Gemini Extension Enterprise Release"
 
 on:
@@ -24,6 +15,9 @@ on:
         required: false
         default: "darwin,linux,win32"
 
+env:
+  NODE_VERSION: "20"
+  PNPM_VERSION: "9"
 
 jobs:
   # Validate release
@@ -276,5 +270,6 @@ jobs:
           text: |
             🎉 Gemini Extension v${{ needs.validate-release.outputs.version }} Released!
             Type: ${{ needs.validate-release.outputs.release_type }}
-          webhook_url: ${{ secrets.SLACK_RELEASE_WEBHOOK }}
+        env:
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
           fields: repo,message,commit,author

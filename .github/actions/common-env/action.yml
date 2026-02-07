@@ -1,0 +1,16 @@
+# .github/actions/common-env/action.yml
+name: 'Set Common Environment Variables'
+description: 'Sets common environment variables for Rust and Node.js projects'
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      run: |
+        echo "RUST_VERSION=1.85.0" >> $GITHUB_ENV
+        echo "NODE_VERSION=20" >> $GITHUB_ENV
+        echo "PNPM_VERSION=9" >> $GITHUB_ENV
+        echo "CARGO_TERM_COLOR=always" >> $GITHUB_ENV
+        echo "RUST_BACKTRACE=1" >> $GITHUB_ENV
+        echo "REGISTRY=ghcr.io" >> $GITHUB_ENV
+        echo "IMAGE_NAME=${{ github.repository }}" >> $GITHUB_ENV
