@@ -1,5 +1,3 @@
-# SPDX-License-Identifier: LICENSE
-
 [package]
 name = "tui"
 description = "Universal High-Performance Data Inspector TUI for ZERO"
