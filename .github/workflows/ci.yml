@@ -37,7 +37,7 @@ jobs:
           fetch-depth: 0
 
       - name: "Validate commit messages"
-        uses: commitlint-github-action@v5
+        uses: wagoid/commitlint-github-action@v5
         with:
           configFile: ".commitlintrc.json"
 
@@ -347,5 +347,6 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: success
-          text: "✅ ZERO CI pipeline passed"
-          webhook_url: ${{ secrets.SLACK_CI_WEBHOOK }}
+          fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_CI_WEBHOOK }}

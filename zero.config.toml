@@ -13,6 +13,9 @@ log_level = "info"
 # telemetry_endpoint = "https://telemetry.example.com"
 # Engine mode: baseline, extended
 engine_mode = "baseline"
+authors = ["The Neuro-Catalyst Group"]
+license = "Unlicense"
+license-file = "UNLICENSE"
 
 [storage]
 # Database Connection URIs (optional)
