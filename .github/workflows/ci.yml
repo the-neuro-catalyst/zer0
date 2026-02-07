@@ -177,7 +177,7 @@ jobs:
             --fail-under 60
 
       - name: "Upload to Codecov"
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           files: ./cobertura.xml
           flags: rust-coverage
@@ -202,7 +202,7 @@ jobs:
           version: ${{ env.PNPM_VERSION }}
 
       - name: "Cache Node modules"
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: crates/ui/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
@@ -265,7 +265,7 @@ jobs:
           version: ${{ env.PNPM_VERSION }}
 
       - name: "Cache Node modules"
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: crates/ui/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
