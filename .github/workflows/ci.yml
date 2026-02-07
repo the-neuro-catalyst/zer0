@@ -71,42 +71,18 @@ jobs:
         with:
           version: 9
 
-      - name: UI Install & Typecheck & Build
+      - name: UI Install & Typecheck  
         run: |
           cd crates/ui
           pnpm install --frozen-lockfile
           pnpm tsc
-          pnpm build
-
-      - name: Cache UI Packages
-        uses: actions/cache@v3
-        with:
-          path: crates/ui/node_modules
-          key: ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
-          restore-keys: |
-            ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
-
-  ui-build-tauri-integrity-check:
-      name: UI Integrity (Tauri)
-      runs-on: ubuntu-latest
-
-      steps:
-      - uses: actions/checkout@v6
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 20  
-
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+ 
       - name: UI Tauri Build
         run: |
           cd crates/ui
-          pnpm install --frozen-lockfile
-          pnpm tauri build  
+          pnpm tauri info
+          pnpm tauri build
+
       - name: Cache UI Packages
         uses: actions/cache@v3
         with: 
@@ -114,25 +90,4 @@ jobs:
           key: ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
           restore-keys: |
             ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
-
-  ui-cache-integrity-check:
-      name: UI Cache Integrity
-      runs-on: ubuntu-latest  
-      steps:
-      - uses: actions/checkout@v6
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 20
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-      - name: Cache UI Packages
-        uses: actions/cache@v3
-        with:
-          path: crates/ui/node_modules
-          key: ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
-          restore-keys: |
-            ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
-            
+# End of file          
