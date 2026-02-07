@@ -1,4 +1,4 @@
-![GitHub License](https://img.shields.io/github/license/the-neuro-catalyst/zer0?style=plastic)
+![GitHub License](https://img.shields.io/github/license/the-neuro-catalyst/zer0)
 [![ZERO CI](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml/badge.svg)](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml) 
 
 
