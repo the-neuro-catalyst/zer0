@@ -1,10 +1,10 @@
 [workspace.package]
 version = "0.1.0"
 authors = ["The Neuro-Catalyst Group"]
-edition = "2024"                                                                                         # Changed back to 2024
+edition = "2021"                                                                                         # Changed back to 2024
 license = "LICENSE"
 repository = "https://github.com/the-neuro-catalyst/zer0"
-rust-version = "1.85.0"
+rust-version = "1.85"
 readme = "README.md"
 categories = ["command-line-utilities", "development-tools", "data-structures"]
 description = "Universal Data Inspector - Local-first, high-performance zero-copy data analysis engine."

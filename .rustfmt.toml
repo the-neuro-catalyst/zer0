@@ -1,6 +1,6 @@
 # SFI-Stack Official Code Style
 max_width = 100
-edition = "2024"
+edition = "2021"
 use_small_heuristics = "Max"
 newline_style = "Unix"
 # indent_style = "Block"
