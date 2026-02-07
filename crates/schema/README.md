@@ -1,4 +1,4 @@
-# `UNLICENSE` **ZERO Schema** — The Structural Axiom
+# `LICENSE` **ZERO Schema** — The Structural Axiom
 
 > **"Ambiguity is the enemy of efficiency."**
 

@@ -2,7 +2,7 @@
 version = "0.1.0"
 authors = ["The Neuro-Catalyst Group"]
 edition = "2024"                                                                                         # Changed back to 2024
-license = "Unlicense"
+license = "LICENSE"
 repository = "https://github.com/the-neuro-catalyst/zer0"
 rust-version = "1.85.0"
 readme = "README.md"
@@ -10,9 +10,9 @@ categories = ["command-line-utilities", "development-tools", "data-structures"]
 description = "Universal Data Inspector - Local-first, high-performance zero-copy data analysis engine."
 documentation = "https://github.com/the-neuro-catalyst/zer0"
 exclude = ["test_data/*", "target/*"]
-license-file = "UNLICENSE"
+license-file = "LICENSE"
 homepage = "https://github.com/the-neuro-catalyst/zer0"
-include = ["crates/**/*", "Cargo.toml", "UNLICENSE", "README.md"]
+include = ["crates/**/*", "Cargo.toml", "LICENSE", "README.md"]
 keywords = ["data", "inspector", "parquet", "zero-copy", "analysis"]
 publish = false
 

@@ -115,7 +115,7 @@ export function SidebarActions({ isCollapsed }: SidebarActionsProps) {
                                 Universal High-Performance <br />zero-copy data inspection engine.
                                 <br />
                                 <br />
-                                <span className="font-mono font-black text-primary">UNLICENSE</span>
+                                <span className="font-mono font-black text-primary">LICENSE</span>
                             </div>
                         </div>
 

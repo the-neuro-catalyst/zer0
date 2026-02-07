@@ -37,4 +37,4 @@ This crate is part of the larger ZERO project. Contributions are welcome followi
 
 ## License
 
-This project is licensed under the UNLICENSE. See the `UNLICENSE` file at the project root for more details.
+This project is licensed under the LICENSE. See the `LICENSE` file at the project root for more details.

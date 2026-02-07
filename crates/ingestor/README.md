@@ -1,4 +1,4 @@
-# `UNLICENSE` **ZERO Ingestor** — The Settlement Layer
+# `LICENSE` **ZERO Ingestor** — The Settlement Layer
 
 > **"Data is only useful when it is where it belongs."**
 

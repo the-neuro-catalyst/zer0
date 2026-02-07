@@ -46,7 +46,7 @@
     "shortDescription": "Universal High-Performance zero-copy data inspection engine.",
     "longDescription": "ZERO provides deterministic schema inference and structural risk analysis for massive datasets with privacy-first redaction capabilities.",
     "publisher": "The Neuro-Catalyst Group",
-    "license": "Unlicense",
+    "license": "LICENSE",
     "copyright": "The Nuero-Catalyst Group",
     "homepage": "https://zero.thenuerocatalyst.com",
     "licenseFile": "LICENSE",

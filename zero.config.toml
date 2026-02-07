@@ -14,8 +14,8 @@ log_level = "info"
 # Engine mode: baseline, extended
 engine_mode = "baseline"
 authors = ["The Neuro-Catalyst Group"]
-license = "Unlicense"
-license-file = "UNLICENSE"
+license = "LICENSE"
+license-file = "LICENSE"
 
 [storage]
 # Database Connection URIs (optional)

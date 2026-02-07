@@ -86,10 +86,6 @@ jobs:
       - name: "Install Rust toolchain"
         uses: dtolnay/rust-toolchain@stable
 
-      - name: "Check for vulnerable publish"
-        run: |
-          cargo install cargo-publish
-          cargo publish
 
       - name: "Verify dependency sources"
         run: |

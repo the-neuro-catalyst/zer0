@@ -1,4 +1,4 @@
-# `UNLICENSE` **ZERO Reader** — The Eye of the Needle
+# `LICENSE` **ZERO Reader** — The Eye of the Needle
 
 > **"If you can't see the data without loading it into RAM, you don't own the data."**
 

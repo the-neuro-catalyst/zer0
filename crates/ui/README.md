@@ -1,4 +1,4 @@
-# `UNLICENSE` **ZERO UI** — The Perception Layer
+# `LICENSE` **ZERO UI** — The Perception Layer
 
 > **"25MB of Pure Muscle in a World of 100MB+ Bloat."**
 

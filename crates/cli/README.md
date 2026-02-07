@@ -1,4 +1,4 @@
-# `UNLICENSE` **ZERO CLI (`zc`)** — The Industrial-Grade Control Lever
+# `LICENSE` **ZERO CLI (`zc`)** — The Industrial-Grade Control Lever
 
 > **"Deterministic data auditing at the speed of the void."**
 

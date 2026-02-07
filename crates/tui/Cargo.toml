@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: Unlicense
+# SPDX-License-Identifier: LICENSE
 
 [package]
 name = "tui"
@@ -37,7 +37,7 @@ path = "src/main.rs"
 name = "zero-tui"
 maintainer = "The Neuro-Catalyst Group <conduct@theneurocatalyst.com>"
 copyright = "2026, The Neuro-Catalyst Group"
-license = "Unlicense"
+license = "LICENSE"
 summary = "Universal Data Inspector TUI"
 description = "High-performance terminal interface for real-time data inspection and observability."
 section = "utils"

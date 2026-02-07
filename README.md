@@ -130,7 +130,7 @@ Binary outputs: `~25MB` | RAM: `<100MB` | Startup: `<300ms`
 - Discord: [Join Now](https://discord.gg/HCPXuC55HV)
 - X.com: [Follow Now](https://x.com/@NeuroCatalyst)
 
-**License:** UNLICENSE (public domain)
+**License:** LICENSE (public domain)
 
 **Enterprise Support:** Regional deployment consulting available at <hi@theneurocatalyst.com>
 

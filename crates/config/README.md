@@ -1,4 +1,4 @@
-# `UNLICENSE` **ZERO Config** — The Calibration Switch
+# `LICENSE` **ZERO Config** — The Calibration Switch
 
 > **"Centralized control for decentralized data."**
 
