@@ -120,10 +120,10 @@ impl MonitorApp {
         {
             if let Ok(content) = std::fs::read_to_string("/proc/self/statm") {
                 let parts: Vec<&str> = content.split_whitespace().collect();
-                if parts.len() > 1
-                    && let Ok(pages) = parts[1].parse::<u64>()
-                {
-                    self.session_ram_usage = ((pages * 4096) as f64) / 1024.0 / 1024.0;
+                if parts.len() > 1 {
+                    if let Ok(pages) = parts[1].parse::<u64>() {
+                        self.session_ram_usage = ((pages * 4096) as f64) / 1024.0 / 1024.0;
+                    }
                 }
             }
         }
@@ -380,13 +380,15 @@ impl MonitorApp {
     }
 
     pub async fn on_tick(&mut self) {
-        if let Ok(metadata) = fs::metadata("zero.config.toml")
-            && let Ok(modified) = metadata.modified()
-            && Some(modified) != self.config_last_modified
-            && let Ok(new_settings) = Settings::load()
-        {
-            self.settings = Arc::new(new_settings);
-            self.config_last_modified = Some(modified);
+        if let Ok(metadata) = fs::metadata("zero.config.toml") {
+            if let Ok(modified) = metadata.modified() {
+                if Some(modified) != self.config_last_modified {
+                    if let Ok(new_settings) = Settings::load() {
+                        self.settings = Arc::new(new_settings);
+                        self.config_last_modified = Some(modified);
+                    }
+                }
+            }
         }
 
         self.update_ram_usage();
