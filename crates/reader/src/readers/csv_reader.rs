@@ -93,11 +93,11 @@ pub fn read_csv_data(file_path: &Path, head: Option<usize>) -> Result<CsvData, D
         let row: SchemaValue = result?;
 
         // Capture first lines for preview if requested
-        if row_idx < num_lines_to_extract
-            && let SchemaValue::Array(ref vals) = row
-        {
-            let line = vals.iter().map(|v| format!("{}", v)).collect::<Vec<_>>().join(",");
-            first_lines.push(line);
+        if row_idx < num_lines_to_extract {
+            if let SchemaValue::Array(ref vals) = row {
+                let line = vals.iter().map(|v| format!("{}", v)).collect::<Vec<_>>().join(",");
+                first_lines.push(line);
+            }
         }
 
         if let SchemaValue::Array(ref vals) = row {
