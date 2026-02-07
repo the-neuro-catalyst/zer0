@@ -8,7 +8,9 @@ on:
 
 jobs:
   rust-integrity-check:
+    name: Rust Integrity Check 
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v6
       
@@ -33,22 +35,29 @@ jobs:
         with:
           components: clippy, rustfmt
 
-      - name: Rust Cache
+      - name: Rust Cache Setup
         uses: swatinem/rust-cache@v2
 
       - name: Rust Integrity (Check & Lint)
         run: |
           cargo fmt --all --check
           cargo clippy --workspace -- -D warnings
+
+      - name: Rust Cache Integrity
+        uses: swatinem/rust-cache@v2
         
       - name: Logic Validation (Test)
         run: |
           scripts/setup_test_data.sh
           cargo test --workspace
 
+      - name: Rust Cache Logic Validation
+        uses: swatinem/rust-cache@v2
+
   ui-integrity-check:
       name: UI Integrity (TypeScript)
       runs-on: ubuntu-latest
+
       steps:
       - uses: actions/checkout@v6
       
@@ -62,8 +71,68 @@ jobs:
         with:
           version: 9
 
-      - name: UI Integrity (TypeScript)
+      - name: UI Install & Typecheck & Build
         run: |
           cd crates/ui
           pnpm install --frozen-lockfile
           pnpm tsc
+          pnpm build
+
+      - name: Cache UI Packages
+        uses: actions/cache@v3
+        with:
+          path: crates/ui/node_modules
+          key: ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
+          restore-keys: |
+            ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
+
+  ui-build-tauri-integrity-check:
+      name: UI Integrity (Tauri)
+      runs-on: ubuntu-latest
+
+      steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20  
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: UI Tauri Build
+        run: |
+          cd crates/ui
+          pnpm install --frozen-lockfile
+          pnpm tauri build  
+      - name: Cache UI Packages
+        uses: actions/cache@v3
+        with: 
+          path: crates/ui/node_modules
+          key: ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
+          restore-keys: |
+            ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
+
+  ui-cache-integrity-check:
+      name: UI Cache Integrity
+      runs-on: ubuntu-latest  
+      steps:
+      - uses: actions/checkout@v6
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Cache UI Packages
+        uses: actions/cache@v3
+        with:
+          path: crates/ui/node_modules
+          key: ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
+          restore-keys: |
+            ui-${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
+            
