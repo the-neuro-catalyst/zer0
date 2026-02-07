@@ -101,7 +101,7 @@ impl SecretScanner {
         let mut redacted = content.to_string();
         // Sort matches in reverse order to keep indices valid during replacement
         let mut sorted_matches = matches;
-        sorted_matches.sort_by(|a, b| b.start.cmp(&a.start));
+        sorted_matches.sort_by_key(|b| std::cmp::Reverse(b.start));
 
         for m in sorted_matches {
             // Ensure we are not overlapping if multiple patterns match the same area

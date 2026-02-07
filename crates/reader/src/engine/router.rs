@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use crate::engine::file_engine::{FileReaderOptions, read_file_content};
+use crate::engine::file_engine::{read_file_content, FileReaderOptions};
 
 use crate::error::DataReaderError;
 

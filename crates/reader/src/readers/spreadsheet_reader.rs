@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use calamine::{Data, Range, Reader, open_workbook_auto};
+use calamine::{open_workbook_auto, Data, Range, Reader};
 
 use serde::{Deserialize, Serialize}; // Add this import
 

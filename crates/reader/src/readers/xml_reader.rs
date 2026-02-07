@@ -12,7 +12,7 @@ use quick_xml::events::Event;
 
 use quick_xml::reader::Reader;
 
-use schema::{DataType, SchemaValue, merge_data_types};
+use schema::{merge_data_types, DataType, SchemaValue};
 
 use serde::{Deserialize, Serialize}; // MODIFIED
 
@@ -128,7 +128,8 @@ impl<R: std::io::BufRead> XmlReader<R> {
                             SchemaValue::String(Cow::Owned(value_str)) // MODIFIED
                         };
 
-                        child_map.insert(Cow::Owned(format!("@{}", key)), value); // MODIFIED
+                        child_map.insert(Cow::Owned(format!("@{}", key)), value);
+                        // MODIFIED
                     }
 
                     let child_value = if child_map.is_empty() {
@@ -635,7 +636,11 @@ pub fn read_xml_content(file_path: &Path, head: Option<usize>) -> Result<XmlData
         let reader = BufReader::new(decoder);
         let lines: Vec<String> =
             reader.lines().take(num_lines_to_extract).filter_map(|l| l.ok()).collect();
-        if lines.is_empty() { None } else { Some(lines) }
+        if lines.is_empty() {
+            None
+        } else {
+            Some(lines)
+        }
     } else {
         None
     };

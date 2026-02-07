@@ -2,7 +2,7 @@ use crate::error::DataReaderError;
 
 use futures_util::StreamExt;
 
-use lapin::{Connection, ConnectionProperties, options::*, types::FieldTable};
+use lapin::{options::*, types::FieldTable, Connection, ConnectionProperties};
 
 use schema::SchemaValue;
 

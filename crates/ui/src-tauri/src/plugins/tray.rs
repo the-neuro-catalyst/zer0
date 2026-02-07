@@ -1,7 +1,7 @@
 use tauri::{
-    AppHandle, Manager, Runtime,
     menu::{Menu, MenuItem, PredefinedMenuItem},
     tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent},
+    AppHandle, Manager, Runtime,
 };
 
 pub fn init<R: Runtime>(app: &AppHandle<R>) -> tauri::Result<()> {

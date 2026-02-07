@@ -13,7 +13,11 @@ pub enum DatabaseType {
 impl DatabaseType {
     #[allow(dead_code)]
     pub fn from_url(url: &str) -> Self {
-        if url.starts_with("postgres") { DatabaseType::Postgresql } else { DatabaseType::Sqlite }
+        if url.starts_with("postgres") {
+            DatabaseType::Postgresql
+        } else {
+            DatabaseType::Sqlite
+        }
     }
 }
 

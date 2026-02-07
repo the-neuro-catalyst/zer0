@@ -8,7 +8,7 @@ use std::io::{self, BufRead};
 
 use std::path::Path;
 
-use schema::{DataType, SchemaValue, merge_data_types};
+use schema::{merge_data_types, DataType, SchemaValue};
 
 use serde::{Deserialize, Serialize};
 

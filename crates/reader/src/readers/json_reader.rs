@@ -6,8 +6,8 @@ use std::fs::File;
 
 use std::path::Path;
 
-use schema::{DataType, Schema, SchemaValue, merge_data_types}; /* MODIFIED: Added
- * SchemaValue, Schema */
+use schema::{merge_data_types, DataType, Schema, SchemaValue}; /* MODIFIED: Added
+                                                                * SchemaValue, Schema */
 
 use serde::{Deserialize, Serialize};
 
@@ -200,7 +200,11 @@ pub fn read_json_value(file_path: &Path, head: Option<usize>) -> Result<JsonData
         let reader = BufReader::new(decoder);
         let lines: Vec<String> =
             reader.lines().take(num_lines_to_extract).filter_map(|l| l.ok()).collect();
-        if !lines.is_empty() { Some(lines) } else { None }
+        if !lines.is_empty() {
+            Some(lines)
+        } else {
+            None
+        }
     } else {
         None
     };
