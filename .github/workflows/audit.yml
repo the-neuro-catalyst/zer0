@@ -16,6 +16,7 @@ on:
   pull_request:
     branches: [main, release]
 
+  workflow_dispatch:
 env:
   RUST_VERSION: "1.85.0"
 
@@ -86,6 +87,10 @@ jobs:
       - name: "Install Rust toolchain"
         uses: dtolnay/rust-toolchain@stable
 
+      - name: "Check for vulnerable publish"
+        run: |
+          cargo install cargo-publish-check
+          cargo publish-check
 
       - name: "Verify dependency sources"
         run: |
@@ -176,6 +181,5 @@ jobs:
         with:
           status: failure
           text: "🚨 Security vulnerabilities detected in ZERO"
+          webhook_url: ${{ secrets.SLACK_SECURITY_WEBHOOK }}
           fields: repo,message,author,action
-        env:
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}

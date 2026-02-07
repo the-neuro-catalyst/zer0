@@ -8,6 +8,7 @@ on:
   schedule:
     - cron: "0 2 * * *"  # Daily at 2 AM
 
+  workflow_dispatch:
 jobs:
   e2e-tests:
     name: "E2E Tests - ${{ matrix.browser }}"

@@ -1,29 +1,22 @@
 ---
 name: Bug Report
-about: Found something broken? Expected. Let's fix it.
+about: Report a bug
+title: "[BUG] "
+labels: bug
 ---
 
-# Bug Report
+**Description**
+<!-- Clear description of the bug -->
 
-*Solo developer here. Bugs are normal.*
+**Steps to Reproduce**
+1. 
+2. 
+3. 
 
-**What broke:**
+**Expected vs Actual**
+- Expected: 
+- Actual: 
 
-- [TEXT]
-
-**How to reproduce:**
-
-- [TEXT]
-
-**Expected vs actual:**
-
-- [TEXT]
-
-**Your system:**
-
-- OS:
-- ZERO version:
-
----
-
-*Thanks for reporting. I'll respond within 24 hours.*
+**Environment**
+- OS: 
+- Version: 

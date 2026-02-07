@@ -1,0 +1,9 @@
+{
+  "name": "Staging",
+  "values": [
+    {
+      "key": "base_url",
+      "value": "https://staging.zero.app"
+    }
+  ]
+}

@@ -12,6 +12,7 @@ on:
     branches: [main, develop]
     types: [opened, synchronize, reopened]
 
+  workflow_dispatch:
 env:
   RUST_VERSION: "1.85.0"
   NODE_VERSION: "20"
@@ -34,7 +35,7 @@ jobs:
           fetch-depth: 0
 
       - name: "Validate commit messages"
-        uses: wagoid/commitlint-github-action@v5
+        uses: commitlint-github-action@v5
         with:
           configFile: ".commitlintrc.json"
 
@@ -339,11 +340,11 @@ jobs:
             echo "✅ CI Pipeline Passed"
           fi
 
-      - name: "Notify Slack on success"
-        if: success()
+      - name: "Notify (optional)"
+        if: failure() && env.SLACK_WEBHOOK != ''
         uses: 8398a7/action-slack@v3
         with:
-          status: success
-          text: "✅ ZERO CI pipeline passed"
+          status: failure
+          text: "❌ ZERO CI pipeline failed"
         env:
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_CI_WEBHOOK }}

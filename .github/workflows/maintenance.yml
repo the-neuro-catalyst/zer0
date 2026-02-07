@@ -5,6 +5,7 @@ on:
     - cron: "0 0 * * 0"  # Weekly on Sunday
     - cron: "0 0 1 * *"  # Monthly on 1st
 
+  workflow_dispatch:
 jobs:
   dependency-updates:
     name: "Check & Update Dependencies"
@@ -45,11 +46,7 @@ jobs:
   cache-cleanup:
     name: "Clean Up Caches"
     runs-on: ubuntu-22.04
-    permissions:
-      actions: write
     steps:
-      - name: "Clear stale caches"
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh cache delete --all --age 30d
+      - uses: actions/gh-cache-factory@v1
+        with:
+          min-age-days: 30

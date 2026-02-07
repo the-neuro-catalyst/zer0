@@ -1,0 +1,15 @@
+{
+  "info": {
+    "name": "Smoke Tests",
+    "description": "Basic API smoke tests"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/health"
+      }
+    }
+  ]
+}

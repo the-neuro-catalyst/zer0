@@ -1,19 +1,15 @@
 ---
-name: Technical Enhancement
-description: Propose systemic optimization or functional expansion.
-labels: ["enhancement", "optimization"]
---- 
-# Technical Enhancement
+name: Feature Request
+about: Suggest an enhancement
+title: "[FEATURE] "
+labels: enhancement
+---
 
-## Functional Objective
+**Description**
+<!-- Clear description of feature -->
 
-- What technical constraint or inefficiency is being addressed?
+**Use Case**
+<!-- Why is this needed -->
 
-## Technical Specification
-
-- Description of the proposed logic and architectural impact.
-
-## Impact Assessment
-
-- Quantifiable gain (e.g., memory reduction, latency decrease).
-  
+**Proposed Solution**
+<!-- How should this work -->

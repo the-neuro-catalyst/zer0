@@ -26,9 +26,8 @@ jobs:
         with:
           status: failure
           text: "🚨 Endpoint down: ${{ matrix.endpoint }}"
-        env:
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          
+          webhook_url: ${{ secrets.SLACK_ALERTS_WEBHOOK }}
+
   performance-monitoring:
     name: "Monitor Performance Metrics"
     runs-on: ubuntu-22.04

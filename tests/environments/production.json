@@ -1,0 +1,9 @@
+{
+  "name": "Production",
+  "values": [
+    {
+      "key": "base_url",
+      "value": "https://zero.app"
+    }
+  ]
+}

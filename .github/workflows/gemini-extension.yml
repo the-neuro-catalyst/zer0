@@ -270,6 +270,5 @@ jobs:
           text: |
             🎉 Gemini Extension v${{ needs.validate-release.outputs.version }} Released!
             Type: ${{ needs.validate-release.outputs.release_type }}
-        env:
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook_url: ${{ secrets.SLACK_RELEASE_WEBHOOK }}
           fields: repo,message,commit,author

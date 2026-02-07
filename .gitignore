@@ -86,3 +86,36 @@ node_modules/
 
 
  
+# GitHub Actions
+.github/workflows/logs/
+.act/
+
+# Test artifacts
+test_data/
+playwright-report/
+coverage/
+
+# Build artifacts
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# GitHub Actions
+.github/workflows/logs/
+.act/
+
+# Test artifacts
+test_data/
+playwright-report/
+coverage/
+
+# Build artifacts
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/

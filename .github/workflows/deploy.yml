@@ -121,7 +121,7 @@ jobs:
     needs: [pre-deploy, build-docker]
     if: github.event.inputs.environment == 'staging' || github.event_name == 'push'
     environment:
-      name: ${{ github.event.inputs.environment == 'staging' && 'staging' || 'production' }}
+      name: staging
       url: https://staging.zero.app
     steps:
       - uses: actions/checkout@v6
@@ -155,7 +155,7 @@ jobs:
     needs: [pre-deploy, deploy-staging]
     if: github.event.inputs.environment == 'canary' || github.event_name == 'push'
     environment:
-      name: ${{ github.event.inputs.environment == 'canary' && 'canary' || 'production' }}
+      name: canary
       url: https://canary.zero.app
     steps:
       - uses: actions/checkout@v6
@@ -177,9 +177,9 @@ jobs:
     name: "Deploy to Production"
     runs-on: ubuntu-22.04
     needs: [pre-deploy, deploy-canary]
-    if: github.event.inputs.environment == 'production' || github.event_name == 'push'
+    if: github.event.inputs.environment == 'production'
     environment:
-      name: ${{ github.event.inputs.environment == 'production' && 'production' || 'staging' }}
+      name: production
       url: https://zero.app
     permissions:
       contents: read
@@ -249,7 +249,8 @@ jobs:
     needs: [pre-deploy, deploy-production]
     if: always()
     steps:
-      - name: "Notify deployment result"
+      - name: "Notify (optional)"
+        if: failure() && env.SLACK_WEBHOOK != ''
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ needs.deploy-production.result }}
@@ -257,6 +258,6 @@ jobs:
             Deployment: v${{ needs.pre-deploy.outputs.version }}
             Environment: ${{ github.event.inputs.environment || 'Automatic' }}
             Status: ${{ job.status }}
-        env:
-          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
           fields: repo,message,commit,author
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_CI_WEBHOOK }}

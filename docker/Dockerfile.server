@@ -1,0 +1,9 @@
+FROM rust:1.85-slim as builder
+WORKDIR /app
+COPY . .
+RUN cargo build --release -p server
+
+FROM debian:bookworm-slim
+COPY --from=builder /app/target/release/server /usr/local/bin/
+ENV APP_VERSION=${VERSION:-0.1.0}
+ENTRYPOINT ["server"]
