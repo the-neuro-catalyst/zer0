@@ -32,7 +32,11 @@ where
 }
 
 pub fn wrap_error(err: IngestorError) -> backoff::Error<IngestorError> {
-    if err.is_transient() { backoff::Error::transient(err) } else { backoff::Error::permanent(err) }
+    if err.is_transient() {
+        backoff::Error::transient(err)
+    } else {
+        backoff::Error::permanent(err)
+    }
 }
 
 #[cfg(test)]

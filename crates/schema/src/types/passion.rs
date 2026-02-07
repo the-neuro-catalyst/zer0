@@ -35,7 +35,11 @@ impl PassionTensor {
     /// (Lite Version: Simulation stub)
     pub fn truth_density(&self) -> f32 {
         // Placeholder logic: Returns a balanced metric based on load and stability
-        if self.s > 0.0 { self.s - self.l * 0.1 } else { 0.0 }
+        if self.s > 0.0 {
+            self.s - self.l * 0.1
+        } else {
+            0.0
+        }
     }
 
     // Legacy compatibility check.

@@ -1,5 +1,5 @@
-use criterion::{Criterion, criterion_group, criterion_main};
-use reader::engine::file_engine::{FileReaderOptions, read_file_content};
+use criterion::{criterion_group, criterion_main, Criterion};
+use reader::engine::file_engine::{read_file_content, FileReaderOptions};
 use reader::output::{OutputFormat, OutputMode};
 use std::fs::File;
 use std::io::Write;

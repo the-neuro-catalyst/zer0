@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use reader::engine::file_engine::{FileReaderOptions, read_file_content};
+    use reader::engine::file_engine::{read_file_content, FileReaderOptions};
     use reader::output::{OutputFormat, OutputMode};
     use reader::reader_result::DataReaderResult;
     use std::path::PathBuf;
@@ -106,7 +106,7 @@ mod tests {
 
         // Test reading via DB Engine
         use reader::engine::db_engine::{
-            DatabaseReaderOptions, DatabaseType, read_database_content,
+            read_database_content, DatabaseReaderOptions, DatabaseType,
         };
 
         let options = DatabaseReaderOptions {

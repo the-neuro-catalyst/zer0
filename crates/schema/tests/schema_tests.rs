@@ -1,4 +1,4 @@
-use schema::{DataType, SchemaValue, UnionValue, merge_types};
+use schema::{merge_types, DataType, SchemaValue, UnionValue};
 use std::borrow::Cow;
 use std::collections::HashMap;
 

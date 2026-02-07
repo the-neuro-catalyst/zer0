@@ -1,5 +1,5 @@
 use reader::engine::file_engine::{
-    FileFormat, FileReaderOptions, get_file_format, read_file_content,
+    get_file_format, read_file_content, FileFormat, FileReaderOptions,
 };
 use reader::output::{OutputFormat, OutputMode};
 use reader::reader_result::DataReaderResult;

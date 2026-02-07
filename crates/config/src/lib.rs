@@ -144,20 +144,19 @@ impl MasterConfig {
         }
 
         // Search in parent directories if still not found
-        if !config_path.exists()
-            && let Ok(current) = std::env::current_dir()
-        {
-            let mut parent = current.parent();
-            while let Some(p) = parent {
-                let p_path = p.join("zero.config.toml");
-                if p_path.exists() {
-                    config_path = p_path;
-                    break;
+        if !config_path.exists() {
+            if let Ok(current) = std::env::current_dir() {
+                let mut parent = current.parent();
+                while let Some(p) = parent {
+                    let p_path = p.join("zero.config.toml");
+                    if p_path.exists() {
+                        config_path = p_path;
+                        break;
+                    }
+                    parent = p.parent();
                 }
-                parent = p.parent();
             }
         }
-
         if config_path.exists() {
             let content = fs::read_to_string(&config_path)?;
             let toml_config: MasterConfig = toml::from_str(&content)?;

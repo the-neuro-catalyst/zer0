@@ -6,7 +6,7 @@ use std::sync::{Arc, Mutex};
 use tracing::info;
 
 mod commands;
-use commands::{ConfigCommands, config_command_run, inspect_command, report_command};
+use commands::{config_command_run, inspect_command, report_command, ConfigCommands};
 
 const CLAP_STYLING: Styles = Styles::styled()
     .header(AnsiColor::Yellow.on_default().bold())

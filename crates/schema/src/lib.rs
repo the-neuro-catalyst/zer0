@@ -8,7 +8,7 @@ pub mod types;
 
 // Re-export core types for backward compatibility and ease of use
 
-pub use ops::merger::{UnionValue, merge_data_types, merge_types};
+pub use ops::merger::{merge_data_types, merge_types, UnionValue};
 
 pub use types::data_type::{DataType, Schema};
 

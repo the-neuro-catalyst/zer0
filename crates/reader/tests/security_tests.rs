@@ -1,4 +1,4 @@
-use reader::engine::file_engine::{FileReaderOptions, read_file_content};
+use reader::engine::file_engine::{read_file_content, FileReaderOptions};
 
 use reader::output::{OutputFormat, OutputMode};
 
