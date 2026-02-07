@@ -23,7 +23,7 @@ jobs:
           pnpm update --interactive --latest || true
 
       - name: "Create PR if updates available"
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "chore: update dependencies"
           title: "⬆️ Dependency Updates"
@@ -36,7 +36,7 @@ jobs:
     permissions:
       issues: write
     steps:
-      - uses: actions/stale@v8
+      - uses: actions/stale@v10
         with:
           stale-issue-message: "This issue is stale"
           days-before-stale: 30
