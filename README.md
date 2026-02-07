@@ -1,6 +1,6 @@
-![GitHub License](https://img.shields.io/github/license/the-neuro-catalyst/zer0)
-[![ZERO CI](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml/badge.svg)](https://github.com/the-neuro-catalyst/zer0/actions/workflows/ci.yml) 
+![GitHub License](https://img.shields.io/github/license/the-neuro-catalyst/zer0?logo=unlicense&logoColor=ffffff&logoSize=auto&label=License&color=fff&cacheSeconds=3600)
 
+ 
 
 
 # `ZERO` - Universal Data Inspector and AI MCP Auditor for Enterprises
