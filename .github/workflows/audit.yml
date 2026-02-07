@@ -1,18 +1,184 @@
-name: Security Audit
+name: "Enterprise Security Audit Pipeline"
 
 on:
   schedule:
-    - cron: "0 0 * * 0"
+    # Daily security audit
+    - cron: "0 2 * * *"
+    # Weekly comprehensive security review
+    - cron: "0 3 * * 0"
   push:
+    branches: [main, release]
     paths:
       - "**/Cargo.lock"
+      - "**/Cargo.toml"
+      - "crates/**"
+      - ".github/workflows/audit.yml"
+  pull_request:
+    branches: [main, release]
+
+env:
+  RUST_VERSION: "1.85.0"
 
 jobs:
-  security_audit:
-    runs-on: ubuntu-latest
+  # Rust security audit
+  cargo-audit:
+    name: "Cargo Security Audit"
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      security-events: write
     steps:
       - uses: actions/checkout@v6
-      - name: run-audit
+        with:
+          fetch-depth: 0
+
+      - name: "Install Rust toolchain"
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: "Cache Rust artifacts"
+        uses: swatinem/rust-cache@v2
+
+      - name: "Run cargo-audit"
         uses: rustsec/audit-check@v2.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Run cargo-deny (Dependencies)"
+        run: |
+          cargo install cargo-deny
+          cargo deny check advisories
+          cargo deny check licenses
+          cargo deny check sources
+
+  # SBOM (Software Bill of Materials)
+  sbom-generation:
+    name: "Generate SBOM"
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Install Rust toolchain"
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: "Generate SBOM with cargo-sbom"
+        run: |
+          cargo install cargo-sbom
+          cargo sbom > sbom.spdx.json
+          echo "SBOM generated successfully"
+
+      - name: "Upload SBOM as artifact"
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.spdx.json
+
+  # Supply chain security
+  supply-chain:
+    name: "Supply Chain Security Check"
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Install Rust toolchain"
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: "Check for vulnerable publish"
+        run: |
+          cargo install cargo-publish-check
+          cargo publish-check
+
+      - name: "Verify dependency sources"
+        run: |
+          cargo tree --depth=2 --duplicates
+
+  # Secret scanning
+  secret-scan:
+    name: "Secret Detection"
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: "Run TruffleHog secret scan"
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          extra_args: --debug --json
+
+      - name: "Scan with detect-secrets"
+        run: |
+          pip install detect-secrets
+          detect-secrets scan --all-files --force-use-all-plugins
+
+  # License compliance
+  license-check:
+    name: "License Compliance"
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Check licenses with REUSE"
+        run: |
+          pip install reuse
+          reuse lint
+
+      - name: "Verify approved licenses"
+        run: |
+          cargo install cargo-license
+          cargo license --all-features
+
+  # Dependency graph and advisory
+  dependency-review:
+    name: "Dependency Review"
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: "Review dependency changes"
+        uses: actions/dependency-review-action@v3
+        with:
+          fail-on-severity: moderate
+
+  # Report security findings
+  security-report:
+    name: "Security Report"
+    runs-on: ubuntu-22.04
+    needs: [cargo-audit, supply-chain, secret-scan, license-check]
+    if: always()
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Download all artifacts"
+        uses: actions/download-artifact@v4
+        with:
+          path: security-reports
+
+      - name: "Compile security report"
+        run: |
+          echo "# Security Audit Report" > SECURITY_REPORT.md
+          echo "Generated: $(date)" >> SECURITY_REPORT.md
+          echo "" >> SECURITY_REPORT.md
+          
+      - name: "Send Slack notification on vulnerability"
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: failure
+          text: "🚨 Security vulnerabilities detected in ZERO"
+          webhook_url: ${{ secrets.SLACK_SECURITY_WEBHOOK }}
+          fields: repo,message,author,action

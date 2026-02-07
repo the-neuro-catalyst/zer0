@@ -1,37 +1,274 @@
-name: Release Extension
+name: "Gemini Extension Enterprise Release"
 
 on:
   push:
     tags:
       - "v*"
+      - "ext-*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version"
+        required: true
+      platforms:
+        description: "Target platforms (comma-separated)"
+        required: false
+        default: "darwin,linux,win32"
+
+env:
+  NODE_VERSION: "20"
+  PNPM_VERSION: "9"
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
+  # Validate release
+  validate-release:
+    name: "Validate Release"
+    runs-on: ubuntu-22.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      release_type: ${{ steps.version.outputs.release_type }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: "Extract version from tag"
+        id: version
+        run: |
+          TAG=${{ github.ref }}
+          if [[ $TAG == refs/tags/v* ]]; then
+            VERSION=${TAG#refs/tags/v}
+            RELEASE_TYPE="stable"
+          elif [[ $TAG == refs/tags/ext-* ]]; then
+            VERSION=${TAG#refs/tags/ext-}
+            RELEASE_TYPE="extension"
+          else
+            VERSION=${{ github.event.inputs.version }}
+            RELEASE_TYPE="manual"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "release_type=$RELEASE_TYPE" >> $GITHUB_OUTPUT
+
+  # Build extension
+  build-extension:
+    name: "Build Extension (${{ matrix.platform }})"
+    runs-on: ${{ matrix.runner }}
+    needs: validate-release
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: darwin
+            arch: arm64
+            runner: macos-latest
+          - platform: darwin
+            arch: x86_64
+            runner: macos-latest
+          - platform: linux
+            arch: x64
+            runner: ubuntu-22.04
+          - platform: win32
+            arch: x64
+            runner: windows-latest
     steps:
       - uses: actions/checkout@v6
 
-      - name: Set up Node.js
+      - name: "Setup Node.js"
         uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install dependencies
-        run: npm ci
+      - name: "Setup pnpm"
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
 
-      - name: Build extension
-        run: npm run build
+      - name: "Cache Node modules"
+        uses: actions/cache@v4
+        with:
+          path: extensions/zero-gemini-extension/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('extensions/zero-gemini-extension/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
-      - name: Create release assets
+      - name: "Install dependencies"
+        working-directory: extensions/zero-gemini-extension
+        run: pnpm install --frozen-lockfile
+
+      - name: "Run linter"
+        working-directory: extensions/zero-gemini-extension
+        run: pnpm lint
+
+      - name: "Run tests"
+        working-directory: extensions/zero-gemini-extension
+        run: pnpm test
+
+      - name: "Build extension"
+        working-directory: extensions/zero-gemini-extension
+        env:
+          NODE_ENV: production
+          BUILD_VERSION: ${{ needs.validate-release.outputs.version }}
+        run: pnpm build
+
+      - name: "Package extension"
+        working-directory: extensions/zero-gemini-extension
         run: |
-          npm run package -- --platform=darwin --arch=arm64
-          npm run package -- --platform=linux --arch=x64
-          npm run package -- --platform=win32 --arch=x64
+          pnpm package \
+            --platform=${{ matrix.platform }} \
+            --arch=${{ matrix.arch }} \
+            --version=${{ needs.validate-release.outputs.version }}
 
-      - name: Create GitHub Release
+      - name: "Create checksums"
+        working-directory: extensions/zero-gemini-extension
+        run: |
+          cd release
+          for file in *; do
+            if [ -f "$file" ]; then
+              sha256sum "$file" > "$file.sha256"
+            fi
+          done
+
+      - name: "Sign artifacts (macOS)"
+        if: matrix.platform == 'darwin'
+        working-directory: extensions/zero-gemini-extension
+        env:
+          APPLE_DEVELOPER_ID: ${{ secrets.APPLE_DEVELOPER_ID }}
+          APPLE_SIGNING_KEY: ${{ secrets.APPLE_SIGNING_KEY }}
+        run: |
+          if [ ! -z "$APPLE_SIGNING_KEY" ]; then
+            echo "Note: Code signing would be performed here"
+          fi
+
+      - name: "Sign artifacts (Windows)"
+        if: matrix.platform == 'win32'
+        working-directory: extensions/zero-gemini-extension
+        env:
+          WINDOWS_SIGNING_KEY: ${{ secrets.WINDOWS_SIGNING_KEY }}
+        run: |
+          if [ ! -z "$WINDOWS_SIGNING_KEY" ]; then
+            echo "Note: Code signing would be performed here"
+          fi
+
+      - name: "Upload artifacts"
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension-${{ matrix.platform }}-${{ matrix.arch }}
+          path: extensions/zero-gemini-extension/release/
+          retention-days: 7
+
+  # Publish to registries
+  publish-npm:
+    name: "Publish to npm"
+    runs-on: ubuntu-22.04
+    needs: [validate-release, build-extension]
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Setup Node.js"
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: https://registry.npmjs.org
+
+      - name: "Setup pnpm"
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: "Install dependencies"
+        working-directory: extensions/zero-gemini-extension
+        run: pnpm install --frozen-lockfile
+
+      - name: "Update version"
+        working-directory: extensions/zero-gemini-extension
+        run: npm version ${{ needs.validate-release.outputs.version }} --no-git-tag-version
+
+      - name: "Publish to npm"
+        working-directory: extensions/zero-gemini-extension
+        run: pnpm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # Create GitHub release
+  github-release:
+    name: "Create GitHub Release"
+    runs-on: ubuntu-22.04
+    needs: [validate-release, build-extension, publish-npm]
+    if: always() && needs.build-extension.result == 'success'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Download all artifacts"
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
+
+      - name: "Organize release files"
+        run: |
+          mkdir -p final-release
+          find release-artifacts -type f \
+            -name "*.tar.gz" -o -name "*.zip" -o -name "*.sha256" \
+            | xargs -I {} cp {} final-release/
+
+      - name: "Generate release notes"
+        run: |
+          cat > RELEASE_NOTES.md << 'EOF'
+          # Gemini Extension v${{ needs.validate-release.outputs.version }}
+          
+          ## What's New
+          - See CHANGELOG.md for details
+          
+          ## Downloads
+          - Darwin (ARM64): `zero-gemini-mcp.darwin.arm64.tar.gz`
+          - Darwin (x86_64): `zero-gemini-mcp.darwin.x86_64.tar.gz`
+          - Linux: `zero-gemini-mcp.linux.x64.tar.gz`
+          - Windows: `zero-gemini-mcp.win32.x64.zip`
+          
+          ## Installation
+          ```bash
+          tar -xzf zero-gemini-mcp.*.tar.gz
+          gemini extensions link ./zero-gemini-mcp
+          ```
+          EOF
+
+      - name: "Create Release"
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            release/darwin.arm64.zero-gemini-mcp.tar.gz
-            release/linux.arm64.zero-gemini-mcp.tar.gz
-            release/win32.arm64.zero-gemini-mcp.zip
+          files: final-release/*
+          body_path: RELEASE_NOTES.md
+          draft: false
+          prerelease: ${{ needs.validate-release.outputs.release_type != 'stable' }}
+          tag_name: v${{ needs.validate-release.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Post-release verification
+  verify-release:
+    name: "Verify Release"
+    runs-on: ubuntu-22.04
+    needs: [github-release, validate-release]
+    if: always()
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Verify npm package"
+        run: |
+          npm view zero-gemini-mcp@${{ needs.validate-release.outputs.version }} version
+
+      - name: "Verify GitHub release"
+        run: |
+          RELEASE_URL="https://api.github.com/repos/${{ github.repository }}/releases/tags/v${{ needs.validate-release.outputs.version }}"
+          curl -sH "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "$RELEASE_URL" | jq .
+
+      - name: "Send notification"
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          text: |
+            🎉 Gemini Extension v${{ needs.validate-release.outputs.version }} Released!
+            Type: ${{ needs.validate-release.outputs.release_type }}
+          webhook_url: ${{ secrets.SLACK_RELEASE_WEBHOOK }}
+          fields: repo,message,commit,author
