@@ -91,15 +91,7 @@ echo "id,name,email,ssn,phone,address,credit_card,license_number,passport_number
 for i in {1..50}; do
     echo "$i,User_$i,user_$i@example.com,$((100+i%90))$((10+i%90))$((1000+i%9000)),555-$((100+i%900))-$((1000+i%9000)),$((1000+i)) Main St, Anytown, CA,4111111111111111,DL$((100000+i)),PP$((1000000+i))" >> staff_pii.csv
 done
-
-# Text with PII
-echo " - SUMMARY.md"
-cat <<EOF > SUMMARY.md
-User Audit Record:
-John Doe (john.doe@example.com) | SSN: 123-45-6789 | CC: 4111111111111111
-Jane Smith (jane.smith@example.com) | SSN: 987-65-4321 | CC: 5500000000000004
-EOF
-
+ 
 # JSON with PII
 echo " - complex_data_pii.json"
 cat <<EOF > complex_data_pii.json

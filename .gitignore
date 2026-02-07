@@ -63,7 +63,6 @@ gemini-cli-main.*
 dashboard.html
 analytic_results.json
 infra/promtail/positions.yaml
-test_data/
 private/
 crates/inspector/
 

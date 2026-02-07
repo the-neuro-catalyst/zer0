@@ -1,0 +1,7 @@
+application:
+  name: production-service
+  version: 2.5.1
+  replicas: 5
+  environment:
+    - name: NODE_ENV
+      value: production
