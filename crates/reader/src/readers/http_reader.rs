@@ -34,18 +34,18 @@ pub async fn read_http_data(url: &str) -> Result<DataReaderResult, DataReaderErr
     // Apply redacted metadata if needed later, for now we just create it
     let _ = &mut metadata;
 
-    if content_type.contains("json")
-        && let Ok(json_val) = serde_json::from_str::<serde_json::Value>(&content)
-    {
-        return Ok(DataReaderResult::Json(
-            crate::readers::json_reader::JsonData {
-                value: convert_json_value_to_schema_value(json_val),
-                line_count: Some(0),
-                first_lines: None,
-                inferred_schema: None,
-            },
-            metadata,
-        ));
+    if content_type.contains("json") {
+        if let Ok(json_val) = serde_json::from_str::<serde_json::Value>(&content) {
+            return Ok(DataReaderResult::Json(
+                crate::readers::json_reader::JsonData {
+                    value: convert_json_value_to_schema_value(json_val),
+                    line_count: Some(0),
+                    first_lines: None,
+                    inferred_schema: None,
+                },
+                metadata,
+            ));
+        }
     }
 
     Ok(DataReaderResult::RawContent(content, metadata))
