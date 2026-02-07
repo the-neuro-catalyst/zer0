@@ -153,3 +153,33 @@ build/
 # IDE
 .vscode/
 .idea/
+
+# Development
+.envrc
+.direnv/
+.env.local
+.env.*.local
+
+# Build artifacts
+dist/
+build/
+target/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+test_data/
+playwright-report/
+coverage/
+.nyc_output/
+
+# GitHub Actions
+.act/
