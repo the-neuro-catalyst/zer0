@@ -151,7 +151,7 @@ jobs:
           key: ${{ matrix.target }}
 
       - name: "Cache Node modules"
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: crates/ui/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
@@ -181,7 +181,7 @@ jobs:
 
       - name: "Upload coverage to Codecov"
         if: matrix.os == 'ubuntu-22.04'
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
         with:
           files: ./cobertura.xml
           fail_ci_if_error: false
@@ -242,7 +242,7 @@ jobs:
           key: release-${{ matrix.target }}
 
       - name: "Cache Node modules"
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: crates/ui/node_modules
           key: ${{ runner.os }}-pnpm-${{ hashFiles('crates/ui/pnpm-lock.yaml') }}
@@ -329,7 +329,7 @@ jobs:
           fi
 
       - name: "Upload build artifacts"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ matrix.artifact_prefix }}-artifacts
           path: artifacts/
@@ -418,7 +418,7 @@ jobs:
           fetch-depth: 0
 
       - name: "Download all artifacts"
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           path: release-artifacts
 
@@ -512,7 +512,7 @@ jobs:
           fields: repo,message,commit,author
 
       - name: "Create deployment"
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             github.rest.repos.createDeployment({
