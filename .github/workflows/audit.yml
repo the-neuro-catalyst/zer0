@@ -88,8 +88,8 @@ jobs:
 
       - name: "Check for vulnerable publish"
         run: |
-          cargo install cargo-publish-check
-          cargo publish-check
+          cargo install cargo-publish
+          cargo publish
 
       - name: "Verify dependency sources"
         run: |
