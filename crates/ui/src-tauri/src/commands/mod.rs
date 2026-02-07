@@ -91,11 +91,11 @@ pub async fn purge_all_data(app: tauri::AppHandle) -> Result<(), String> {
     }
 
     // Optionally also clear cache if available
-    if let Ok(cache_dir) = app.path().app_cache_dir()
-        && cache_dir.exists()
-    {
-        let _ = fs::remove_dir_all(&cache_dir);
-        info!("Application cache cleared.");
+    if let Ok(cache_dir) = app.path().app_cache_dir() {
+        if cache_dir.exists() {
+            let _ = fs::remove_dir_all(&cache_dir);
+            info!("Application cache cleared.");
+        }
     }
 
     Ok(())
@@ -117,10 +117,10 @@ pub fn get_process_memory() -> f64 {
     {
         if let Ok(content) = std::fs::read_to_string("/proc/self/statm") {
             let parts: Vec<&str> = content.split_whitespace().collect();
-            if parts.len() > 1
-                && let Ok(pages) = parts[1].parse::<u64>()
-            {
-                return (pages * 4096) as f64 / 1024.0 / 1024.0;
+            if parts.len() > 1 {
+                if let Ok(pages) = parts[1].parse::<u64>() {
+                    return (pages * 4096) as f64 / 1024.0 / 1024.0;
+                }
             }
         }
     }

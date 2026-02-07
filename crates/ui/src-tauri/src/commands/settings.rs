@@ -20,11 +20,11 @@ pub fn get_settings(app: AppHandle, state: State<'_, ConfigState>) -> Result<App
 
     // Attempt to map store values back to our AppConfig struct
     // This is much more robust than manual file reading
-    if let Some(val) = store.get("config")
-        && let Ok(saved_config) = serde_json::from_value::<AppConfig>(val)
-    {
-        *config = saved_config;
-        info!("Settings synchronized with persistent store");
+    if let Some(val) = store.get("config") {
+        if let Ok(saved_config) = serde_json::from_value::<AppConfig>(val) {
+            *config = saved_config;
+            info!("Settings synchronized with persistent store");
+        }
     }
 
     Ok(config.clone())
