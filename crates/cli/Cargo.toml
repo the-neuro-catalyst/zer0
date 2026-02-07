@@ -1,0 +1,42 @@
+[package]
+name = "cli"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+clap.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+# Workspace dependencies
+config = { path = "../config" }
+reader = { path = "../reader", features = ["base-formats"] }
+tui = { path = "../tui" }
+console.workspace = true
+csv.workspace = true
+serde.workspace = true
+chrono.workspace = true
+serde_json.workspace = true
+
+[dev-dependencies]
+assert_cmd.workspace = true
+predicates = "3.1"
+
+[[bin]]
+name = "zero-cli"
+path = "./src/main.rs"
+
+[package.metadata.deb]
+name = "zero-cli"
+maintainer = "The Neuro-Catalyst Group <conduct@theneurocatalyst.com>"
+copyright = "2026, The Neuro-Catalyst Group"
+license = "Unlicense"
+summary = "Universal Data Inspector CLI"
+description = "High-performance command-line utility for zero-copy data inspection and forensics."
+section = "utils"
+priority = "optional"
+assets = [["target/release/zero-cli", "/usr/bin/zero-cli", "755"]]

@@ -1,0 +1,49 @@
+# ZERO Configuration Template
+#
+# This is a template for creating the 'zero.toml' file used by the CLI and Core engine.
+# Copy this file to 'zero.toml' at the project root to customize your environment.
+# Environment variables prefixed with ZERO_ will override these settings.
+
+[global]
+# Environment: development, production, test
+env = "development"
+# Log level: trace, debug, info, warn, error
+log_level = "info"
+# Telemetry endpoint (optional)
+# telemetry_endpoint = "https://telemetry.example.com"
+# Engine mode: baseline, extended
+engine_mode = "baseline"
+
+[storage]
+# Database Connection URIs (optional)
+# postgres_url = "postgres://user:password@localhost:5432/zero_db"
+# mongo_uri = "mongodb://localhost:27017"
+# neo4j_uri = "bolt://localhost:7687"
+# qdrant_url = "http://localhost:6333"
+# s3_bucket = "my-data-bucket"
+# s3_region = "us-east-1"
+
+[streaming]
+# Message Queue Settings (optional)
+# kafka_brokers = "localhost:9092"
+# kafka_topic = "telemetry"
+# kafka_group_id = "zero-inspectors"
+# rabbitmq_url = "amqp://localhost:5672"
+# rabbitmq_queue = "data-streams"
+
+[ai]
+# AI Integration (optional)
+# openai_api_key = "sk-..."
+# embedding_model = "text-embedding-3-small"
+
+[execution]
+# Engine execution tuning
+concurrency = 4
+batch_size = 1000
+# plugin_dir = "./plugins"
+
+[tui]
+# Tick rate in milliseconds for the UI refresh.
+tick_rate_ms = 50
+# Accent color for the TUI (e.g., "cyan", "green", "yellow", "blue", "magenta", "red", "white").
+accent_color = "green"

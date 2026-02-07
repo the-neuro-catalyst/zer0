@@ -1,0 +1,95 @@
+[package]
+name = "reader"
+description = "Universal Data Reader for ZERO"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+chrono.workspace = true
+thiserror.workspace = true
+clap.workspace = true
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+walkdir.workspace = true
+regex.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+rust_decimal.workspace = true
+rust_decimal_macros.workspace = true
+schema = { path = "../schema" }
+config = { path = "../config" }
+anyhow.workspace = true
+# Optional / Feature-gated dependencies
+rustls = { workspace = true }
+csv = { workspace = true, optional = true }
+quick-xml = { workspace = true, optional = true }
+serde_yaml = { workspace = true, optional = true }
+toml = { workspace = true, optional = true }
+parquet = { workspace = true, optional = true }
+arrow = { workspace = true, optional = true }
+arrow-flight = { workspace = true, optional = true }
+pdf-extract = { workspace = true, optional = true }
+calamine = { workspace = true, optional = true }
+rusqlite = { version = "0.38.0", features = ["bundled"], optional = true }
+tokio-postgres = { workspace = true, optional = true }
+tokio-postgres-rustls = { workspace = true, optional = true }
+mysql_async = { workspace = true, optional = true }
+aws-config = { workspace = true, optional = true }
+aws-sdk-s3 = { workspace = true, optional = true }
+rdkafka = { workspace = true, optional = true }
+lapin = { workspace = true, optional = true }
+reqwest = { workspace = true }
+image = { workspace = true, optional = true }
+kamadak-exif = { workspace = true, optional = true }
+zip = { workspace = true, optional = true }
+flate2 = { workspace = true, optional = true }
+pulldown-cmark = { workspace = true, optional = true }
+object_store = { workspace = true, optional = true }
+url = { workspace = true }
+futures-util = { workspace = true }
+async-stream = { workspace = true }
+tokio-stream = { workspace = true }
+chardetng = { workspace = true }
+encoding_rs = { workspace = true }
+encoding_rs_io = { workspace = true }
+chrono-tz = { workspace = true }
+dotenvy.workspace = true
+hyper-util.workspace = true
+tempfile.workspace = true
+
+[features]
+base-formats = ["csv", "quick-xml", "serde_yaml", "toml"]
+extra-docs = [
+    "pdf-extract",
+    "calamine",
+    "image",
+    "kamadak-exif",
+    "zip",
+    "flate2",
+    "pulldown-cmark",
+]
+database = [
+    "rusqlite",
+    "tokio-postgres",
+    "tokio-postgres-rustls",
+    "mysql_async",
+]
+cloud = ["aws-config", "aws-sdk-s3"]
+streaming = ["rdkafka", "lapin"]
+analytics = ["parquet", "arrow", "arrow-flight", "object_store"]
+
+[dev-dependencies]
+assert_cmd.workspace = true
+criterion.workspace = true
+
+
+[[bench]]
+name = "reader_bench"
+harness = false
+
+[[bin]]
+name = "zero-reader"
+path = "./src/main.rs"

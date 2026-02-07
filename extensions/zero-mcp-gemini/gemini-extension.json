@@ -1,0 +1,8 @@
+{
+  "name": "zero-mcp-gemini",
+  "version": "0.2.1",
+  "contextFileName": "GEMINI.md",
+  "skills": {
+    "enabled": true
+  }
+}

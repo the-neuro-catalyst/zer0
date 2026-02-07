@@ -1,0 +1,8 @@
+# SFI-Stack Official Code Style
+max_width = 100
+edition = "2024"
+use_small_heuristics = "Max"
+newline_style = "Unix"
+# indent_style = "Block"
+# Group imports by module
+# group_imports = "StdExternalCrate"

@@ -1,0 +1,20 @@
+description = "Inspect file metadata and information density with optional row count."
+prompt = """
+Please inspect the file at `{{args}}` using the `inspect_resource` tool.
+
+**Usage:**
+- `/zero:inspect <path>` (Defaults to 10 rows)
+- `/zero:inspect <path> <rows>` (Inspects specified number of rows)
+
+**Instructions:**
+1. Parse the arguments. If a number is provided as the second argument, use it as the `head` parameter for `inspect_resource`.
+2. Call `inspect_resource` with the path and head count.
+
+**Focus on the following Metrics:**
+1. **Information Density:** Report the calculated score.
+2. **Structural Depth:** Analyze the complexity of the schema.
+3. **Compromised Status:** Check if any PII or secrets were redacted.
+
+**Synthesis:**
+Based on these metrics, provide a brief assessment of the file's "Janitor Standard" efficiency.
+"""

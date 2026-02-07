@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  gemini_service:
+    build:
+      context: ./zero-mcp-gemini
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    container_name: zero-mcp-gemini
+
+  mcp_service:
+    build:
+      context: ./zero-mcp
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+    container_name: zero-mcp

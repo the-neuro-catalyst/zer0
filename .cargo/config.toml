@@ -1,0 +1,34 @@
+# .cargo/config.toml - ZERO-G Warp Drive Configuration
+# Mission: Achieve sub-millisecond data perception through hardware-level optimization.
+
+[build]
+# If you have sccache installed, uncomment the next line:
+# rustc-wrapper = "sccache"
+incremental = true
+
+# Generic optimization for all targets
+[target.'cfg(all())']
+rustflags = [
+    # 1. Hardware Optimization: Pull every ounce of performance from the current CPU.
+    # Note: Use "-C", "target-cpu=x86-64-v3" for better distribution compatibility.
+    # "-C", "target-cpu=native",
+
+    # 2. Faster Linking: Eliminate the "Linking BS" bottleneck.
+    # REQUIRES: sudo apt install mold (on Linux)
+    # "-C", "link-arg=-fuse-ld=mold",
+
+    # 3. Structural Integrity: Discard redundant symbols and optimize binary layout.
+    "-C",
+    "link-arg=-Wl,--as-needed",
+]
+
+[target.x86_64-apple-darwin]
+# Using 'zld' for fast linking on macOS
+rustflags = ["-C", "link-arg=-fuse-ld=zld", "-C", "target-cpu=native"]
+
+[target.aarch64-apple-darwin]
+rustflags = ["-C", "link-arg=-fuse-ld=zld", "-C", "target-cpu=native"]
+
+[env]
+# Environmental variables for high-intensity build states.
+CARGO_INCREMENTAL = "1"

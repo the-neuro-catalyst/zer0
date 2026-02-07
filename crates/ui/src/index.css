@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 0 0% 100%;
+        --foreground: 222 47% 11%;
+        --card: 0 0% 100%;
+        --card-foreground: 222 47% 11%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 222 47% 11%;
+        --primary: 221 83% 53%;
+        --primary-foreground: 210 40% 98%;
+        --secondary: 210 40% 96.1%;
+        --secondary-foreground: 222 47% 11%;
+        --muted: 210 40% 96.1%;
+        --muted-foreground: 215 16% 47%;
+        --accent: 210 40% 96.1%;
+        --accent-foreground: 222 47% 11%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 210 40% 98%;
+        --border: 214.3 31.8% 91.4%;
+        --input: 214.3 31.8% 91.4%;
+        --ring: 221 83% 53%;
+        --radius: 0.5rem;
+    }
+    .dark {
+        --primary: 217 91% 60%;
+        --primary-foreground: 222 47% 4%;
+        --secondary: 222 47% 18%;
+        --secondary-foreground: 210 40% 98%;
+        --background: 240 5% 10%;
+        --foreground: 0 0% 98%;
+        --card: 240 3% 15%;
+        --card-foreground: 0 0% 98%;
+        --popover: 240 5% 26%;
+        --popover-foreground: 0 0% 98%;
+        --muted: 240 3% 46%;
+        --muted-foreground: 0 0% 98%;
+        --accent: 273 86% 20%;
+        --accent-foreground: 270 95% 75%;
+        --destructive: 0 84% 60%;
+        --destructive-foreground: 0 85% 97%;
+        --border: 240 5% 33%;
+        --input: 240 5% 33%;
+        --ring: 255 91% 76%;
+    }
+
+    /* Global App Styles (Merged from App.css) */
+    html, body, #root {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+}
+
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}

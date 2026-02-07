@@ -1,0 +1,32 @@
+version: 2
+updates:
+  # 1. Rust Dependencies (Cargo)
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    groups:
+      rust-dependencies:
+        patterns:
+          - "*"
+
+  # 2. UI Dependencies (crates/ui)
+  - package-ecosystem: "npm"
+    directory: "/crates/ui"
+    schedule:
+      interval: "weekly"
+    groups:
+      ui-dependencies:
+        patterns:
+          - "*"
+
+  # 4. GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      actions-dependencies:
+        patterns:
+          - "*"

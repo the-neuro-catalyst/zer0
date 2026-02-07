@@ -1,0 +1,52 @@
+[package]
+name = "tui"
+description = "Universal High-Performance Data Inspector TUI for ZERO"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+winapi = "0.3"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+cocoa = "0.24"
+
+[dependencies]
+config = { path = "../config" }
+reader = { path = "../reader", features = ["base-formats"] }
+ratatui.workspace = true
+crossterm.workspace = true
+tokio = { workspace = true, features = ["full"] }
+anyhow.workspace = true
+chrono.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+walkdir.workspace = true
+rand.workspace = true
+
+[[bin]]
+name = "zero-tui"
+path = "src/main.rs"
+
+[package.metadata.deb]
+name = "zero-tui"
+maintainer = "The Neuro-Catalyst Group <conduct@theneurocatalyst.com>"
+copyright = "2026, The Neuro-Catalyst Group"
+license = "Unlicense"
+summary = "Universal Data Inspector TUI"
+description = "High-performance terminal interface for real-time data inspection and observability."
+section = "utils"
+priority = "optional"
+assets = [["target/release/zero-tui", "/usr/bin/zero-tui", "755"]]
+
+[package.metadata.bundle]
+name = "ZERO TUI"
+identifier = "com.neurocatalyst.zero-tui"
+icon = ["../../public/logo/zero-black-logo.png"]
+version = "0.1.0"
+copyright = "Copyright (c) The Neuro-Catalyst Group 2026. All rights reserved."
+short_description = "ZERO Terminal UI"
+long_description = "Universal High-Performance terminal-based data inspection engine."

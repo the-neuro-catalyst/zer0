@@ -1,0 +1,9 @@
+description = "Scan for secrets, API keys, and sensitive data using ripgrep."
+prompt = """
+Please scan the project for potential security risks, hardcoded secrets, or sensitive patterns matching `{{args}}`.
+
+Use the `search_files` tool with the pattern provided.
+If no pattern is provided, search for common sensitive terms like "API_KEY", "SECRET", "PASSWORD", or "TOKEN".
+
+Results should be summarized with a risk assessment for each finding.
+"""

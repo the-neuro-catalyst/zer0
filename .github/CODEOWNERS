@@ -1,0 +1,6 @@
+# Global owners
+*       @the-neuro-catalyst
+
+# Critical logic owners
+/crates/zero-core/    @the-neuro-catalyst
+/crates/schema/       @the-neuro-catalyst

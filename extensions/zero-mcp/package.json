@@ -1,0 +1,24 @@
+{
+  "name": "zero-mcp",
+  "version": "0.2.0",
+  "description": "Universal High-performance MCP server for ZERO Data Inspector.",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "vitest run",
+    "test:keploy": "jest --coverage --coverageReporters=text --coverageReporters=cobertura --collectCoverageFrom='./**/*.{js,jsx,ts,tsx}'"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.23.0",
+    "fast-glob": "^3.3.3",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.25",
+    "typescript": "~5.4.5",
+    "vitest": "^4.0.18"
+  },
+  "packageManager": "pnpm@10.28.1"
+}

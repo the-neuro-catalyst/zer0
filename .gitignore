@@ -1,0 +1,89 @@
+# === Rust / Cargo ===
+/target
+/debug
+/release
+**/*.rs.bk
+Cargo.lock
+# (Keep Cargo.lock for workspaces/binary apps to ensure deterministic builds, 
+# but ignoring it is common in some library-only setups. 
+# Here we keep it but listed for awareness)
+
+# === Secrets & Environment ===
+.env
+.env.*
+!.env.example
+!example.env
+*.pem
+*.key
+# zero.config.toml
+
+# === Logs & Artifacts ===
+*.log
+ingestion_report.json
+reader.log
+ingestor.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === Operating Systems ===
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# === IDEs / Editors ===
+# .vscode
+# .vscode/*
+# !.vscode/settings.json
+# !.vscode/tasks.json
+# !.vscode/launch.json
+# !.vscode/extensions.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+.classpath
+
+# === Temporary & Test Data ===
+/tmp/
+.temp/
+example_data/
+.gemini/tmp/*
+
+# === GEMINI ===
+# gemini-cli settings
+# .gemini/
+/gemini-cli-main/
+gemini-cli-main.*
+
+# === ZERO ===
+dashboard.html
+analytic_results.json
+infra/promtail/positions.yaml
+test_data/
+private/
+crates/inspector/
+
+# GitHub App credentials
+gha-creds-*.json
+
+# Logs
+logs
+dev-debug.log
+# Dependency directories
+node_modules/
+# Environment variables
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# OS specific
+
+
+ 
