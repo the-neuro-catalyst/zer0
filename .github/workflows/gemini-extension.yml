@@ -1,3 +1,12 @@
+env:
+  RUST_VERSION: "1.85.0"
+  NODE_VERSION: "20"
+  PNPM_VERSION: "9"
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 name: "Gemini Extension Enterprise Release"
 
 on:
@@ -15,9 +24,6 @@ on:
         required: false
         default: "darwin,linux,win32"
 
-env:
-  NODE_VERSION: "20"
-  PNPM_VERSION: "9"
 
 jobs:
   # Validate release
