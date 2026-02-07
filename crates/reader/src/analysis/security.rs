@@ -133,12 +133,13 @@ impl SecretScanner {
             }
             serde_json::Value::Object(obj) => {
                 for (key, val) in obj.iter_mut() {
-                    if is_sensitive_key(key)
-                        && let serde_json::Value::String(s) = val
-                        && !s.contains("[REDACTED]")
-                    {
-                        *s = "[REDACTED]".to_string();
-                        compromised = true;
+                    if is_sensitive_key(key) {
+                        if let serde_json::Value::String(s) = val {
+                            if !s.contains("[REDACTED]") {
+                                *s = "[REDACTED]".to_string();
+                                compromised = true;
+                            }
+                        }
                     }
                     if Self::redact_json_value(val) {
                         compromised = true;
@@ -172,12 +173,13 @@ impl SecretScanner {
             }
             SchemaValue::Object(obj) => {
                 for (key, val) in obj.iter_mut() {
-                    if is_sensitive_key(key)
-                        && let SchemaValue::String(s) = val
-                        && !s.contains("[REDACTED]")
-                    {
-                        *s = std::borrow::Cow::Owned("[REDACTED]".to_string());
-                        compromised = true;
+                    if is_sensitive_key(key) {
+                        if let SchemaValue::String(s) = val {
+                            if !s.contains("[REDACTED]") {
+                                *s = std::borrow::Cow::Owned("[REDACTED]".to_string());
+                                compromised = true;
+                            }
+                        }
                     }
                     if Self::redact_schema_value(val) {
                         compromised = true;
