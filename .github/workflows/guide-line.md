@@ -1,4 +1,4 @@
-ผมวิเคราะห์ CI/CD ของคุณแล้ว มีอย่างไรที่ยังขาด:
+# CI/CD ที่ยังขาด:
 
 ## 🔴 **ที่ขาดสำคัญสูง:**
 
@@ -90,7 +90,7 @@
 │ • Tag creation (release)                              │
 │ • Manual workflow_dispatch                            │
 │ • Scheduled (daily/weekly)                            │
-└──────────────────────────────────────────────────────┘
+└───────────────────────────────────────────────────────┘
            │
            ├─────────────────────────┬────────────────────┐
            ▼                         ▼                    ▼
@@ -138,8 +138,8 @@
                     │  - Health Checks           │
                     │  - Monitoring Setup        │
                     │  - Alerts Configuration    │
-                    │  - Notification           │
-                    └───────────────────────────┘
+                    │  - Notification            │
+                    └────────────────────────────┘
 ```
 
 ---
@@ -698,4 +698,4 @@ jobs:
 | 🟡 **LOW** | Mobile CI/CD | Only if mobile apps exist | High |
 | 🟡 **LOW** | Load Testing | Performance optimization | Medium |
 
-ผมแนะนำเริ่มเพิ่ม **Deployment**, **E2E Testing**, และ **Documentation** ก่อนครับ! 🚀
+กำลังเริ่มเพิ่ม **Deployment**, **E2E Testing**, และ **Documentation** ! 🚀
