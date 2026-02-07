@@ -71,10 +71,9 @@ pub async fn run_monitor(
             // Silently fail render errors to avoid log spam
         }
 
-        if event::poll(tick_rate)?
-            && let Event::Key(key) = event::read()?
-        {
-            if app.is_jumping {
+        if event::poll(tick_rate)? {
+            if let Event::Key(key) = event::read()? {
+                if app.is_jumping {
                 match key.code {
                     KeyCode::Enter => {
                         let jump_input = app.jump_input.clone();
@@ -300,6 +299,7 @@ pub async fn run_monitor(
                     }
                     _ => {}
                 }
+            }
             }
         }
     }

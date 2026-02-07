@@ -81,14 +81,17 @@ pub fn run() {
             let config_state = ConfigState::new();
 
             // Sync ConfigState with persistent store on startup
-            if let Ok(store) = app.store("settings.json")
-                && let Some(val) = store.get("config")
-                && let Ok(saved_config) =
-                    serde_json::from_value::<crate::state::config::AppConfig>(val)
-                && let Ok(mut config) = config_state.0.lock()
-            {
-                *config = saved_config;
-                info!("ConfigState initialized from persistent store");
+            if let Ok(store) = app.store("settings.json") {
+                if let Some(val) = store.get("config") {
+                    if let Ok(saved_config) =
+                        serde_json::from_value::<crate::state::config::AppConfig>(val)
+                    {
+                        if let Ok(mut config) = config_state.0.lock() {
+                            *config = saved_config;
+                            info!("ConfigState initialized from persistent store");
+                        }
+                    }
+                }
             }
 
             app.manage(config_state);
