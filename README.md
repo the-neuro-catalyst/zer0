@@ -127,8 +127,6 @@ Binary outputs: `~25MB` | RAM: `<100MB` | Startup: `<300ms`
 
 - Docs: [Read more](https://zero.theneurocatalyst.com/docs)
 - Source: [Download](https://github.com/the-neuro-catalyst/zer0)
-- Discord: [Join Now](https://discord.gg/HCPXuC55HV)
-- X.com: [Follow Now](https://x.com/@NeuroCatalyst)
 
 **License:** LICENSE (public domain)
 
