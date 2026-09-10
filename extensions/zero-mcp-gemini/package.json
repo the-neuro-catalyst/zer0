@@ -20,7 +20,7 @@
     "@types/node": "^20.11.25",
     "ts-node": "^10.9.2",
     "typescript": "~5.4.5",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.11"
   },
   "packageManager": "pnpm@10.28.1"
 }
